@@ -19,3 +19,15 @@ For now only a small subset is implemented, but the major Rest endpoint are impl
 1. Check status of a model build request - Since building a model is an asynchronous method: `job` command.
 1. Make prediction using an existing model: `predict` command.
 
+
+# Help:
+```
+sym-rest-rc -h
+
+sym-rest-rc config -h
+sym-rest-rc create -h
+sym-rest-rc learn -h
+sym-rest-rc build -h
+sym-rest-rc job -h
+sym-rest-rc predict -h
+```
