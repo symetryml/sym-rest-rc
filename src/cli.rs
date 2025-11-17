@@ -16,16 +16,44 @@ pub struct Cli {
 pub enum Commands {
     /// Display the currently loaded configuration
     Config,
-    /// Create a new project using REST API
-    Create(CreateArgs),
+    /// Project management commands
+    Project(ProjectCommand),
+    /// Model management commands
+    Model(ModelCommand),
     /// Learn or push data to a project using REST API or WebSocket
     Learn(LearnArgs),
-    /// Create a new machine learning model using REST API
-    Build(BuildArgs),
-    /// Make predictions with a model using WebSocket
-    Predict(PredictArgs),
     /// Check the status of an asynchronous job
     Job(JobArgs),
+}
+
+#[derive(Args)]
+pub struct ProjectCommand {
+    #[command(subcommand)]
+    pub command: ProjectCommands,
+}
+
+#[derive(Subcommand)]
+pub enum ProjectCommands {
+    /// Create a new project using REST API
+    Create(CreateArgs),
+    /// Delete a project using REST API
+    Delete(DeleteArgs),
+}
+
+#[derive(Args)]
+pub struct ModelCommand {
+    #[command(subcommand)]
+    pub command: ModelCommands,
+}
+
+#[derive(Subcommand)]
+pub enum ModelCommands {
+    /// Create a new machine learning model using REST API
+    Build(BuildArgs),
+    /// Delete a model using REST API
+    Delete(ModelDeleteArgs),
+    /// Make predictions with a model using REST API or WebSocket
+    Predict(PredictArgs),
 }
 
 #[derive(Args)]
@@ -42,6 +70,13 @@ pub struct CreateArgs {
     /// Enable histogram
     #[arg(long, default_value_t = false)]
     pub hist: bool,
+}
+
+#[derive(Args)]
+pub struct DeleteArgs {
+    /// Name of the project to delete
+    #[arg(long)]
+    pub project: String,
 }
 
 #[derive(Args)]
@@ -86,6 +121,16 @@ pub struct BuildArgs {
     /// Model parameters (key=value pairs, comma-separated)
     #[arg(long)]
     pub params: Option<String>,
+}
+
+#[derive(Args)]
+pub struct ModelDeleteArgs {
+    /// Project name
+    #[arg(long)]
+    pub project: String,
+    /// Model name to delete
+    #[arg(long)]
+    pub model: String,
 }
 
 #[derive(Args)]
