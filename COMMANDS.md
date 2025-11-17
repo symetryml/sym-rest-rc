@@ -12,9 +12,16 @@ export SML_SK="YOUR_SK for your user"
 # Project
 
 ## Create a Project
-This create a new project, use rest API
+This create a new project.
 ```
 ./sym-rest-rc project create --name=project1 --params="enable_histogram=true" --type=cpu
+```
+
+## Project Information
+
+Returns information about a project.
+```
+./sym-rest-rc project info --name=project1
 ```
 
 ## Delete a Project
