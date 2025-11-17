@@ -36,7 +36,7 @@ The tool requires a configuration file in TOML format. Configuration can be load
 host = "charm"
 port = 8080
 user = "c1"
-secretkey = "A1ciUrDJgm5LIJU710bxeQ=="
+secretkey = "YOUR SECRET KEY"
 use_ws_for_learn = true
 use_ws_for_predit = true
 ```
