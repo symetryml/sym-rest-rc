@@ -52,6 +52,8 @@ pub enum ModelCommands {
     Build(BuildArgs),
     /// Delete a model using REST API
     Delete(ModelDeleteArgs),
+    /// Auto-select the best algorithm for a model using REST API
+    Autoselect(AutoselectArgs),
     /// Make predictions with a model using REST API or WebSocket
     Predict(PredictArgs),
 }
@@ -131,6 +133,40 @@ pub struct ModelDeleteArgs {
     /// Model name to delete
     #[arg(long)]
     pub model: String,
+}
+
+#[derive(Args)]
+pub struct AutoselectArgs {
+    /// Project name
+    #[arg(long)]
+    pub project: String,
+    /// Model name to create
+    #[arg(long)]
+    pub model: String,
+    /// Task type
+    #[arg(long)]
+    pub task: String,
+    /// Path to validation data file
+    #[arg(long)]
+    pub val_file: Option<String>,
+    /// Validation dataframe in JSON format
+    #[arg(long)]
+    pub val_df: Option<String>,
+    /// Target column IDs (comma-separated, e.g., "13" or "12,13")
+    #[arg(long)]
+    pub targets: Option<String>,
+    /// Input column IDs (comma-separated, e.g., "0,1,2,3")
+    #[arg(long)]
+    pub inputs: Option<String>,
+    /// Target attribute names (comma-separated, e.g., "Iris_setosa")
+    #[arg(long)]
+    pub target_names: Option<String>,
+    /// Input attribute names (comma-separated, e.g., "sepal_length,sepal_width,petal_length,petal_width")
+    #[arg(long)]
+    pub input_names: Option<String>,
+    /// Model parameters (key=value pairs, comma-separated)
+    #[arg(long)]
+    pub params: Option<String>,
 }
 
 #[derive(Args)]

@@ -1,19 +1,8 @@
 use crate::config;
 use crate::auth::AuthHeaders;
-use serde::Serialize;
+use crate::common::DataFrame;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-
-#[derive(Serialize)]
-struct DataFrame {
-    #[serde(rename = "attributeNames")]
-    attribute_names: Vec<String>,
-    data: Vec<Vec<String>>,
-    #[serde(rename = "attributeTypes")]
-    attribute_types: Vec<String>,
-    #[serde(rename = "errorHandling")]
-    error_handling: i32,
-}
 
 pub async fn handle_learn(
     project: String,
@@ -44,7 +33,17 @@ pub async fn handle_learn(
         }
         let row: Vec<String> = line
             .split(',')
-            .map(|s| s.trim().to_string())
+            .map(|s| {
+                let trimmed = s.trim();
+                // Try to clean up decimal values that should be integers
+                if let Ok(val) = trimmed.parse::<f64>() {
+                    if val.fract() == 0.0 {
+                        // It's a whole number, return as integer string
+                        return format!("{}", val as i64);
+                    }
+                }
+                trimmed.to_string()
+            })
             .collect();
         data.push(row);
     }
@@ -71,7 +70,7 @@ pub async fn handle_learn(
         attribute_names,
         data,
         attribute_types,
-        error_handling: 1,
+        error_handling: Some(1),
     };
 
     // Build the resource path

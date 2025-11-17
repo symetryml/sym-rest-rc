@@ -2,6 +2,7 @@ mod cli;
 mod config;
 mod commands;
 mod auth;
+mod common;
 
 use clap::Parser;
 use cli::{Cli, Commands, ProjectCommands, ModelCommands};
@@ -54,6 +55,20 @@ async fn main() {
                                 }
                                 ModelCommands::Delete(args) => {
                                     commands::models::delete::handle_delete(args.project, args.model).await
+                                }
+                                ModelCommands::Autoselect(args) => {
+                                    commands::models::autoselect::handle_autoselect(
+                                        args.project,
+                                        args.model,
+                                        args.task,
+                                        args.val_file,
+                                        args.val_df,
+                                        args.targets,
+                                        args.inputs,
+                                        args.target_names,
+                                        args.input_names,
+                                        args.params
+                                    ).await
                                 }
                                 ModelCommands::Predict(args) => {
                                     if args.use_ws {

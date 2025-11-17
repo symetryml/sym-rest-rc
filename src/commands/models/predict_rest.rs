@@ -1,16 +1,8 @@
 use crate::config;
 use crate::auth::AuthHeaders;
-use serde::{Serialize, Deserialize};
+use crate::common::DataFrame;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-struct PredictRequest {
-    attribute_names: Vec<String>,
-    data: Vec<Vec<String>>,
-    attribute_types: Vec<String>,
-}
 
 pub async fn handle_predict(
     project: String,
@@ -32,7 +24,7 @@ pub async fn handle_predict(
     // Parse the input data
     let predict_request = if let Some(json_df) = df {
         println!("Using JSON dataframe: {}", json_df);
-        serde_json::from_str::<PredictRequest>(&json_df)?
+        serde_json::from_str::<DataFrame>(&json_df)?
     } else if let Some(file_path) = file {
         println!("Reading data from file: {}", file_path);
 
@@ -58,7 +50,17 @@ pub async fn handle_predict(
             }
             let row: Vec<String> = line
                 .split(',')
-                .map(|s| s.trim().to_string())
+                .map(|s| {
+                    let trimmed = s.trim();
+                    // Try to clean up decimal values that should be integers
+                    if let Ok(val) = trimmed.parse::<f64>() {
+                        if val.fract() == 0.0 {
+                            // It's a whole number, return as integer string
+                            return format!("{}", val as i64);
+                        }
+                    }
+                    trimmed.to_string()
+                })
                 .collect();
             data.push(row);
         }
@@ -69,10 +71,11 @@ pub async fn handle_predict(
         // The user can provide types via --df if they need custom types
         let attribute_types: Vec<String> = vec!["C".to_string(); attribute_names.len()];
 
-        PredictRequest {
+        DataFrame {
             attribute_names,
             data,
             attribute_types,
+            error_handling: None,
         }
     } else {
         unreachable!()

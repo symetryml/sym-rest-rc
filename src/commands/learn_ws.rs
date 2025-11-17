@@ -1,4 +1,5 @@
 use crate::config;
+use crate::common::DataFrame;
 use serde::Serialize;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -9,17 +10,6 @@ use hmac::{Hmac, Mac};
 use sha2::Sha256;
 
 type HmacSha256 = Hmac<Sha256>;
-
-#[derive(Serialize)]
-struct DataFrame {
-    #[serde(rename = "attributeNames")]
-    attribute_names: Vec<String>,
-    data: Vec<Vec<String>>,
-    #[serde(rename = "attributeTypes")]
-    attribute_types: Vec<String>,
-    #[serde(rename = "errorHandling")]
-    error_handling: i32,
-}
 
 #[derive(Serialize)]
 struct WsHeaders {
@@ -84,7 +74,7 @@ pub async fn handle_learn(
         attribute_names,
         data,
         attribute_types,
-        error_handling: 1,
+        error_handling: Some(1),
     };
 
     // Convert DataFrame to JSON string (compact format)

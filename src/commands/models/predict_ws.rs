@@ -1,5 +1,6 @@
 use crate::config;
-use serde::{Serialize, Deserialize};
+use crate::common::DataFrame;
+use serde::Serialize;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use tokio_tungstenite::{connect_async, tungstenite::protocol::Message};
@@ -9,15 +10,6 @@ use hmac::{Hmac, Mac};
 use sha2::Sha256;
 
 type HmacSha256 = Hmac<Sha256>;
-
-#[derive(Serialize, Deserialize)]
-struct DataFrame {
-    #[serde(rename = "attributeNames")]
-    attribute_names: Vec<String>,
-    data: Vec<Vec<String>>,
-    #[serde(rename = "attributeTypes")]
-    attribute_types: Vec<String>,
-}
 
 #[derive(Serialize)]
 struct WsHeaders {
@@ -94,6 +86,7 @@ pub async fn handle_predict(
         attribute_names,
         data,
         attribute_types,
+        error_handling: None,
     };
 
     // Convert DataFrame to JSON string (compact format)
