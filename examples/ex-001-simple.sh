@@ -10,13 +10,13 @@ export SML_CONFIG_FILE=etc/rc.conf
 # Use Rest API to learn
 ./sym-rest-rc --config=etc/rc.conf learn \
     --project=test001 \
-    --file=/datasets/c/IrisFiles/Iris_rtlm.csv \
+    --file=./data/Iris_rtlm.csv \
     --types="C,C,C,C,B,B,B,B,B,B,B,B,B,B,B"
 
 # Use Web Socket to learn:
 ./sym-rest-rc --config=etc/rc.conf learn \
     --project=test001 \
-    --file=./iris2rows.csv \
+    --file=./data/iris2rows.csv \
     --types="C,C,C,C,B,B,B,B,B,B,B,B,B,B,B" \
     --use-ws
 
@@ -29,7 +29,7 @@ export SML_CONFIG_FILE=etc/rc.conf
     --project=test001 \
     --task=binary_classifier \
     --model=as1 \
-    --val-file=/datasets/c/IrisFiles/Iris_rtlm.csv \
+    --val-file=./data/Iris_rtlm.csv \
     --target-names="Iris_setosa" \
     --input-names="sepal_length,sepal_width,petal_length,petal_width,sepal_lengt_b1,sepal_lengt_b2,sepal_width_b1,sepal_width_b2,petal_length_b1,petal_length_b2,petal_width_b1,petal_width_b2" \
     --params='autoselect_grid_type=autoselect_grid_type_normal,selector_type=selector_type_fw_bw,selector_max_iterations=5,autoselect_thread_pool_size=4,sml_model_assessment_type=auc'
@@ -39,7 +39,7 @@ export SML_CONFIG_FILE=etc/rc.conf
     --project=test001 \
     --task=binary_classifier \
     --model=as2 \
-    --val-file=/datasets/c/IrisFiles/Iris_rtlm.csv \
+    --val-file=./data/Iris_rtlm.csv \
     --targets="13" \
     --inputs="0,1,2,3,4,5,6,7,8,9,10,11,12" \
     --params='autoselect_grid_type=autoselect_grid_type_normal,selector_type=selector_type_fw_bw,selector_max_iterations=5,autoselect_thread_pool_size=4,sml_model_assessment_type=auc'
@@ -53,7 +53,7 @@ export SML_CONFIG_FILE=etc/rc.conf
   --input-names="sepal_length,sepal_width,petal_length,petal_width"
 
 # Make prediction
-./sym-rest-rc model predict --project=test001 --model=model1 --file="./iris2rows.csv"
+./sym-rest-rc model predict --project=test001 --model=model1 --file="./data/iris2rows.csv"
 
 # Project Info
 ./sym-rest-rc project info --project=test001
