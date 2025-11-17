@@ -3,7 +3,7 @@
 
 # Useful environment Variables
 
-export SML_CONFIG_FILE so that we do not need to use `--config` with every commands:
+`export SML_CONFIG_FILE` so that we do not need to use `--config` with every commands:
 ```
 export SML_CONFIG_FILE=./etc/rc.conf
 export SML_SK="YOUR_SK for your user"
