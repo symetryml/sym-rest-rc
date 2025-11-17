@@ -16,7 +16,7 @@ export SML_CONFIG_FILE=etc/rc.conf
 # Use Web Socket to learn:
 ./sym-rest-rc --config=etc/rc.conf learn \
     --project=test001 \
-    --file=./dem-websocat/iris2rows.csv \
+    --file=./iris2rows.csv \
     --types="C,C,C,C,B,B,B,B,B,B,B,B,B,B,B" \
     --use-ws
 
@@ -46,7 +46,7 @@ export SML_CONFIG_FILE=etc/rc.conf
 
 
 # Check model build job (replace --id=15 with good id
-./sym-rest-rc job --id=15
+./sym-rest-rc job --id=12
 
 ./sym-rest-rc model build --config=./etc/rc.conf \
   --project=test001 --name=model2 --type=lda --target-names="Iris_setosa" \
@@ -55,8 +55,16 @@ export SML_CONFIG_FILE=etc/rc.conf
 # Make prediction
 ./sym-rest-rc model predict --project=test001 --model=model1 --file="./iris2rows.csv"
 
+# Project Info
+./sym-rest-rc project info --project=test001
+
+# Models Info
+./sym-rest-rc model info --model=as1 --project=test001
+./sym-rest-rc model info --model=model1 --project=test001
+
 # delete model
 ./sym-rest-rc model delete --project=test001 --model=model1
+./sym-rest-rc model delete --project=test001 --model=as1
 
 # delete project
 ./sym-rest-rc project delete --project=test001

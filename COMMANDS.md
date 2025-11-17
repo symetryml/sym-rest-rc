@@ -100,6 +100,11 @@ url:
 DELETE /{cid}/projects/{pid}/{modelid}/evtwrapper
 ./sym-rest-rc model evtwrapper --delete --project=test-rust --model=model5
 ```
+## Model Info
+```
+./sym-rest-rc model info --name=model2 --project=test-rust
+```
+
 
 ## Delete model
 ```

@@ -38,6 +38,8 @@ pub enum ProjectCommands {
     Create(CreateArgs),
     /// Delete a project using REST API
     Delete(DeleteArgs),
+    /// Get project information using REST API
+    Info(ProjectInfoArgs),
 }
 
 #[derive(Args)]
@@ -54,6 +56,8 @@ pub enum ModelCommands {
     Delete(ModelDeleteArgs),
     /// Auto-select the best algorithm for a model using REST API
     Autoselect(AutoselectArgs),
+    /// Get model information using REST API
+    Info(ModelInfoArgs),
     /// Make predictions with a model using REST API or WebSocket
     Predict(PredictArgs),
 }
@@ -77,6 +81,13 @@ pub struct CreateArgs {
 #[derive(Args)]
 pub struct DeleteArgs {
     /// Name of the project to delete
+    #[arg(long)]
+    pub project: String,
+}
+
+#[derive(Args)]
+pub struct ProjectInfoArgs {
+    /// Name of the project
     #[arg(long)]
     pub project: String,
 }
@@ -131,6 +142,16 @@ pub struct ModelDeleteArgs {
     #[arg(long)]
     pub project: String,
     /// Model name to delete
+    #[arg(long)]
+    pub model: String,
+}
+
+#[derive(Args)]
+pub struct ModelInfoArgs {
+    /// Project name
+    #[arg(long)]
+    pub project: String,
+    /// Model name
     #[arg(long)]
     pub model: String,
 }

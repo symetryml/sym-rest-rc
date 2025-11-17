@@ -37,6 +37,9 @@ async fn main() {
                                 ProjectCommands::Delete(args) => {
                                     commands::projects::delete::handle_delete(args.project).await
                                 }
+                                ProjectCommands::Info(args) => {
+                                    commands::projects::info::handle_info(args.project).await
+                                }
                             }
                         }
                         Commands::Model(model_cmd) => {
@@ -69,6 +72,9 @@ async fn main() {
                                         args.input_names,
                                         args.params
                                     ).await
+                                }
+                                ModelCommands::Info(args) => {
+                                    commands::models::info::handle_info(args.project, args.model).await
                                 }
                                 ModelCommands::Predict(args) => {
                                     if args.use_ws {
