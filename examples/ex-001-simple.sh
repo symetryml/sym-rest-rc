@@ -1,4 +1,6 @@
-
+#
+# It is assumed that this script is run from the sym-rest-rc folder
+#
 
 export SML_SK="YOUR_SK for your user"
 export SML_CONFIG_FILE=etc/rc.conf
