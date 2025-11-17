@@ -41,6 +41,25 @@ this create a new machine learning model, use rest API (asynchronous - returns j
 ./sym-rest-rc model build --project=project1 --name=model2 --type=hba --target-names="Iris_setosa" --input-names="sepal_length,sepal_width,petal_length,petal_width" --params="param1=somevalue,param2=somevalue2"
 ```
 
+## Create EVT Wrapper TBD
+```
+NOT IMPLEMENTED
+url:
+POST /{cid}/projects/{pid}/{modelid}/evtwrapper
+body:
+map<string,string>
+
+./sym-rest-rc model evtwrapper --project=test-rust --model=model5  --params="param1=somevalue,param2=somevalue2"
+```
+
+## Delete EVT Wrapper TBD
+```
+NOT IMPLEMENTED
+url:
+DELETE /{cid}/projects/{pid}/{modelid}/evtwrapper
+./sym-rest-rc model evtwrapper --delete --project=test-rust --model=model5
+```
+
 ## Make Predictions
 
 This make prediction with a model
