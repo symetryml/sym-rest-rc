@@ -2,6 +2,7 @@
 name = "sym-rest-rc"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.70"
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
