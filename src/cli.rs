@@ -20,6 +20,8 @@ pub enum Commands {
     Project(ProjectCommand),
     /// Model management commands
     Model(ModelCommand),
+    /// EVT wrapper management commands
+    Evtwrapper(EvtwrapperCommand),
     /// Learn or push data to a project using REST API or WebSocket
     Learn(LearnArgs),
     /// Check the status of an asynchronous job
@@ -60,6 +62,20 @@ pub enum ModelCommands {
     Info(ModelInfoArgs),
     /// Make predictions with a model using REST API or WebSocket
     Predict(PredictArgs),
+}
+
+#[derive(Args)]
+pub struct EvtwrapperCommand {
+    #[command(subcommand)]
+    pub command: EvtwrapperCommands,
+}
+
+#[derive(Subcommand)]
+pub enum EvtwrapperCommands {
+    /// Create an EVT wrapper for a model
+    Create(EvtwrapperCreateArgs),
+    /// Delete an EVT wrapper from a model
+    Delete(EvtwrapperDeleteArgs),
 }
 
 #[derive(Args)]
@@ -214,4 +230,27 @@ pub struct JobArgs {
     /// Job ID to check status
     #[arg(long)]
     pub id: String,
+}
+
+#[derive(Args)]
+pub struct EvtwrapperCreateArgs {
+    /// Project name
+    #[arg(long)]
+    pub project: String,
+    /// Model name
+    #[arg(long)]
+    pub model: String,
+    /// EVT wrapper parameters (key=value pairs, comma-separated)
+    #[arg(long)]
+    pub params: String,
+}
+
+#[derive(Args)]
+pub struct EvtwrapperDeleteArgs {
+    /// Project name
+    #[arg(long)]
+    pub project: String,
+    /// Model name
+    #[arg(long)]
+    pub model: String,
 }

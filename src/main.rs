@@ -5,7 +5,7 @@ mod auth;
 mod common;
 
 use clap::Parser;
-use cli::{Cli, Commands, ProjectCommands, ModelCommands};
+use cli::{Cli, Commands, ProjectCommands, ModelCommands, EvtwrapperCommands};
 
 #[tokio::main]
 async fn main() {
@@ -82,6 +82,16 @@ async fn main() {
                                     } else {
                                         commands::models::predict_rest::handle_predict(args.project, args.model, args.df, args.file).await
                                     }
+                                }
+                            }
+                        }
+                        Commands::Evtwrapper(evtwrapper_cmd) => {
+                            match evtwrapper_cmd.command {
+                                EvtwrapperCommands::Create(args) => {
+                                    commands::evtwrapper::create::handle_create(args.project, args.model, args.params).await
+                                }
+                                EvtwrapperCommands::Delete(args) => {
+                                    commands::evtwrapper::delete::handle_delete(args.project, args.model).await
                                 }
                             }
                         }

@@ -27,6 +27,12 @@ pub struct MLContext {
     pub extra_parameters: HashMap<String, String>,
 }
 
+/// KSVSMap structure - array of key-value maps
+#[derive(Serialize, Debug)]
+pub struct KSVSMap {
+    pub values: Vec<HashMap<String, String>>,
+}
+
 /// Helper function to parse comma-separated integers and return as strings
 pub fn parse_int_list_as_strings(s: &str) -> Result<Vec<String>, Box<dyn std::error::Error>> {
     s.split(',')
