@@ -55,7 +55,7 @@ export SML_CONFIG_FILE=etc/rc.conf
   --input-names="sepal_length,sepal_width,petal_length,petal_width"
 
 # Make prediction
-./sym-rest-rc model predict --project=test001 --model=model1 --file="./data/iris2rows.csv"
+./sym-rest-rc model predict --project=test001 --model=as1 --file="./data/iris2rows.csv"
 
 # Project Info
 ./sym-rest-rc project info --project=test001
